@@ -2,8 +2,9 @@ import os
 from PIL import Image
 from array import *
 from random import shuffle
+import gzip
 
-Names = [['./training-images','train'], ['./test-images','tk10']]
+Names = [['./training-images', 'train'], ['./test-images' , 'tk10']]
 for name in Names:
     data_image = array('B')
     data_label = array('B')
@@ -18,12 +19,13 @@ for name in Names:
     shuffle(FileList)  # Usefull for further segmenting the validation set
 
     for filename in FileList:
-
+        print(filename)
         # 获取标签值
-        label = filename.split('/')
-        i = str(label[1])
-        j = str(i.split('\\')[1])
-        label = int(j)
+        labelArr = filename.split('/')
+        #i = str(label[1])
+        #print(label)
+        #j = str(i.split('\\')[1])
+        label = int(labelArr[2])
         # label = int(filename.split('/')[1])
 
         Im = Image.open(filename)
@@ -60,10 +62,33 @@ for name in Names:
 
     data_image = header + data_image
 
-    output_file = open('./MNIST_data/' + name[1] + '-images-idx3-ubyte.idx3-ubyte', 'wb')
+    #shutil.rmtree('../MNIST_data/')
+    #os.mkdir('../MNIST_data/')
+    #os.mkdir('../MNIST_data/')
+    output_file = open('../MNIST_data/' + name[1] + '-images.idx3-ubyte', 'wb')
     data_image.tofile(output_file)
     output_file.close()
 
-    output_file = open('./MNIST_data/' + name[1] + '-labels-idx1-ubyte.idx1-ubyte', 'wb')
+    output_file = open('../MNIST_data/' + name[1] + '-labels.idx1-ubyte', 'wb')
     data_label.tofile(output_file)
     output_file.close()
+
+    #image_gz=tarfile.open('../MNIST_data/' + name[1] + '-images-idx3-ubyte.idx3-ubyte',"r:gz")
+    #label_gz = tarfile.open('../MNIST_data/' + name[1] + '-labels-idx1-ubyte.idx1-ubyte', "r:gz")
+    #gzip.GzipFile('images-idx3-ubyte.gz','wb',9,'../MNIST_data/' + name[1] + '-images-idx3-ubyte.idx3-ubyte')
+    #g = gzip.GzipFile(filename="", mode="wb", compresslevel=9, fileobj=open('../MNIST_data/images-idx3-ubyte.gz', 'wb'))
+
+    image_in = open('../MNIST_data/' + name[1] + '-images.idx3-ubyte', 'rb')
+    image_out = gzip.open('../MNIST_data/' + name[1] + '-images-idx3-ubyte.gz','wb')
+    image_out.writelines(image_in)
+    image_out.close()
+    image_in.close()
+
+    labels_in = open('../MNIST_data/' + name[1] + '-labels.idx1-ubyte', 'rb')
+    labels_out = gzip.open('../MNIST_data/' + name[1] + '-labels-idx1-ubyte.gz' ,'wb')
+    labels_out.writelines(labels_in)
+    labels_out.close()
+    labels_in.close()
+
+    #os.system('gzip ' + '../MNIST_data/' + name[1] + '-images.idx3-ubyte')
+    #os.system('gzip ' + '../MNIST_data/' + name[1] + '-labels.idx1-ubyte')
