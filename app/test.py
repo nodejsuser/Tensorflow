@@ -65,11 +65,11 @@ for name in Names:
     #shutil.rmtree('../MNIST_data/')
     #os.mkdir('../MNIST_data/')
     #os.mkdir('../MNIST_data/')
-    output_file = open('../MNIST_data/' + name[1] + '-images.idx3-ubyte', 'wb')
+    output_file = open('../MNIST_data/' + name[1] + '-images-idx3-ubyte', 'wb')
     data_image.tofile(output_file)
     output_file.close()
 
-    output_file = open('../MNIST_data/' + name[1] + '-labels.idx1-ubyte', 'wb')
+    output_file = open('../MNIST_data/' + name[1] + '-labels-idx1-ubyte', 'wb')
     data_label.tofile(output_file)
     output_file.close()
 
@@ -78,13 +78,13 @@ for name in Names:
     #gzip.GzipFile('images-idx3-ubyte.gz','wb',9,'../MNIST_data/' + name[1] + '-images-idx3-ubyte.idx3-ubyte')
     #g = gzip.GzipFile(filename="", mode="wb", compresslevel=9, fileobj=open('../MNIST_data/images-idx3-ubyte.gz', 'wb'))
 
-    image_in = open('../MNIST_data/' + name[1] + '-images.idx3-ubyte', 'rb')
+    image_in = open('../MNIST_data/' + name[1] + '-images-idx3-ubyte', 'rb')
     image_out = gzip.open('../MNIST_data/' + name[1] + '-images-idx3-ubyte.gz','wb')
     image_out.writelines(image_in)
     image_out.close()
     image_in.close()
 
-    labels_in = open('../MNIST_data/' + name[1] + '-labels.idx1-ubyte', 'rb')
+    labels_in = open('../MNIST_data/' + name[1] + '-labels-idx1-ubyte', 'rb')
     labels_out = gzip.open('../MNIST_data/' + name[1] + '-labels-idx1-ubyte.gz' ,'wb')
     labels_out.writelines(labels_in)
     labels_out.close()

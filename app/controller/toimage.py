@@ -1,5 +1,6 @@
 import base64
 import uuid
+from app.controller.DS import toDS
 
 from PIL import Image
 
@@ -52,8 +53,12 @@ def base64toimg(strg, tag):
         im.save(train_image_path + filename, quality=50)
         im.save(test_image_path + filename, quality=50)
 
+        print("using DS: ")
+        toDS(train_image_path + filename,tag)
+        toDS(test_image_path + filename,tag)
+
         print("save successful.")
-        return "保存成功"
+        return "添加成功"
     except Exception as ex:
         print (ex)
         return ex

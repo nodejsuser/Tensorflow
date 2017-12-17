@@ -29,7 +29,7 @@ SECRET_KEY = 'a3cpe728he(81t@%#qsir@)p_dwm0j*t-bni@ad#60t255c0=u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # cache settings
 CACHES = {

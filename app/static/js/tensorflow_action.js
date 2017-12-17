@@ -51,7 +51,7 @@ function uploadPic(event) {
     var tag = $("#input_tag").val();
     //判断是否为数字
     var reg = new RegExp("^[0-9]*$");
-    if(!reg.test(tag))
+    if(tag==""||!reg.test(tag))
     {
         alert("请输入数字标签值");
         return;
@@ -100,6 +100,13 @@ function copyimage(event){
 }
 
 function  train(event) {
+    var reg = new RegExp("^[0-9]*$");
+    var tag = $("#input_tag").val();
+    if(tag==""||!reg.test(tag))
+    {
+        alert("请输入数字标签值");
+        return;
+    }
     $.get("/addImageToMNIST/",{"tag": 1},
         function(ret){
         $('#label_result').html(ret)

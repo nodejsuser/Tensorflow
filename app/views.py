@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic.list import ListView
 import logging
-from app.controller.addPNGToMNIST import ImageToMNIST
+from app.controller.DS import toDS
 from app.controller.predictionImage import predictionImage
 from app.controller.toimage import base64toimg, checkimg
 
@@ -69,9 +69,9 @@ def suggest_view(request):
 
 def addImageToMNIST(request):
     print("add start")
-    result = ImageToMNIST()
+    result = toDS()
 
-    return HttpResponse(result)
+    return HttpResponse('添加图片到数据集完成')
 
 
 def check(request, ):
